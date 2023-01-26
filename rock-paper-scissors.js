@@ -108,6 +108,7 @@ function game() {
     // don't allow an even number or rounds, so we can force a winner
     console.assert(NUM_ROUNDS % 2 == 1, "Please set an odd number of rounds, to force a winner.");
 
+    console.clear();
     console.log("Hello, welcome to the classic game of Rock, Paper, Scissors.");
     console.log(`We are going to play best of ${NUM_ROUNDS}. Ties do over.`);
     let playerScore = 0;
