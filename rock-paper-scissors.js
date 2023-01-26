@@ -136,4 +136,4 @@ function game() {
 }
 
 // Play the game!
-game();
+document.getElementById("play").addEventListener("click", game);
