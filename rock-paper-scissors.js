@@ -26,7 +26,7 @@ function formatSelection(selection) {
 
 // Is the selection legal, return a boolean
 function isSelectionLegal(selection) {
-    return SELECTIONS.includes(canonicalizeSelection(selection));
+    return selection == null ? false : SELECTIONS.includes(canonicalizeSelection(selection));
 }
 
 // Computer the results for a single round of the game
