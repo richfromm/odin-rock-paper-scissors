@@ -107,18 +107,28 @@ function outputScore(playerScore, computerScore) {
     updateText('computerScore', computerScore);
 }
 
+// XXX using visibility vs. display doesn't affect the event listener problem
+
 function showMoveButtons() {
+    console.log("Showing move buttons, hiding play button");
     document.querySelector('div.move').style.display = 'block';
     document.querySelector('div.over').style.display = 'none';
+    // document.querySelector('div.move').style.visibility = 'visible';
+    // document.querySelector('div.over').style.visibility = 'hidden';
 }
 
 function showPlayButton() {
+    console.log("Showing play button, hiding move buttons");
     document.querySelector('div.move').style.display = 'none';
     document.querySelector('div.over').style.display = 'block';
+    // document.querySelector('div.move').style.visibility = 'hidden';
+    // document.querySelector('div.over').style.visibility = 'visible';
 }
 
 function resetGame() {
     console.clear();
+    console.log("Resetting game");
+
     let msgGame = "Hello, welcome to the classic game of Rock, Paper, Scissors.\n" +
         `We are going to play best of ${NUM_ROUNDS}. Ties do over.\n` +
         "\n" +
@@ -126,6 +136,8 @@ function resetGame() {
     updateText('msgGame', msgGame);
 
     showMoveButtons();
+
+    updateText('msgRound', "");
 
     playerScore = 0;
     computerScore = 0;
@@ -136,9 +148,6 @@ function resetGame() {
 // We don't count rounds in which there is a tie
 function checkScore() {
     if (playerScore + computerScore >= NUM_ROUNDS) {
-        // XXX really we should allow you to play again
-        document.querySelectorAll('button.move').forEach(button => button.removeEventListener('click', playRound));
-
         let msgGame = "Game Over!\n";
         if (playerScore > computerScore) {
             msgGame += "Congratulations! You won the game!";
@@ -150,16 +159,27 @@ function checkScore() {
         console.log(msgGame);
         updateText('msgGame', msgGame);
 
-        // XXX not yet hooked up
         showPlayButton();
     }
 }
 
+// We *don't* need to call this repeatedly, even when hiding/showing buttons
+function addEventListeners() {
+    // Even though the listeners are always in effect (we don't remove them),
+    // it's not effectively possible to do both at the same time, b/c only one
+    // of these types is showing at any moment in time.
+    document.querySelectorAll('button.move').forEach(
+        button => button.addEventListener('click', playRound));
+    document.querySelector('button.over').addEventListener('click', resetGame);
+}
+
 // XXX are global variables bad?
+
 let playerScore, computerScore;
+
 const NUM_ROUNDS = 5;
 // don't allow an even number or rounds, so we can force a winner
 console.assert(NUM_ROUNDS % 2 == 1, "Please set an odd number of rounds, to force a winner.");
-resetGame();
 
-document.querySelectorAll('button.move').forEach(button => button.addEventListener('click', playRound));
+resetGame();
+addEventListeners();
