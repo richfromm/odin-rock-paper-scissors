@@ -1,7 +1,7 @@
 body {
   color: brown;  /* keep consistent with DEFAULT_COLOR in rock-paper-scissors.js */
   background-color: blanchedalmond;
-  font-family: "Merriweather Sans", serif;
+  font-family: "Merriweather Sans", sans-serif;
   font-size: 18px;
   text-align: center;
   margin-top: 48px;
@@ -46,7 +46,7 @@ button {
 }
 
 .score {
-  font-family: "Merriweather", sans-serif;
+  font-family: "Merriweather", serif;
   font-size: 30px;
   font-weight: 900;
   height: 240px;
