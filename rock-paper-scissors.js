@@ -81,20 +81,24 @@ function playRound() {
     console.log(`You chose ${playerSelection}, computer chose ${computerSelection}`);
     let result = computeRound(playerSelection, computerSelection);
 
-    let msgTop;
+    let msgTop1, msgTop2;
     if (result > 0) {
-        msgTop = `You Win! ${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`;
+        msgTop1 = "You Win!";
+        msgTop2 = `${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`;
         playerScore++;
     } else if (result < 0) {
-        msgTop = `You Lose! ${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`;
+        msgTop1 = "You Lose!";
+        msgTop2 = `${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`;
         computerScore++;
     } else {
         console.assert(result == 0, "There's a bug in the playRound() function. Sorry.");
-        msgTop = `Tie! You both chose ${formatSelection(computerSelection)}. Try again.`;
+        msgTop1 = "Tie!";
+        msgTop2 = `You both chose ${formatSelection(computerSelection)}. Try again.`;
         // no need to adjust either score
     }
-    console.log(msgTop);
-    updateText('msgTop', msgTop);
+    console.log(msgTop1, msgTop2);
+    updateText('msgTop1', msgTop1);
+    updateText('msgTop2', msgTop2);
     outputScore(playerScore, computerScore);
 
     // will end game if appropriate
@@ -146,9 +150,10 @@ function firstTime() {
     resetScore();
     clearBottom();
 
-    let msgTop = "Welcome to the classic game of Rock, Paper, Scissors.\n" +
-        `We are going to play best of ${NUM_ROUNDS}. Ties do over.`;
-    updateText('msgTop', msgTop);
+    let msgTop1 = "Welcome to the classic game of Rock, Paper, Scissors.";
+    let msgTop2 = `We are going to play best of ${NUM_ROUNDS}. Ties do over.`;
+    updateText('msgTop1', msgTop1);
+    updateText('msgTop2', msgTop2);
 
     showPlayButton();
 }
@@ -159,7 +164,8 @@ function playGame() {
     resetScore();
     clearBottom();
 
-    updateText('msgTop', "Make your first move...");
+    updateText('msgTop1', "");
+    updateText('msgTop2', "Make your first move...");
 
     showMoveButtons();
 }
