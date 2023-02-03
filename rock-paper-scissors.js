@@ -23,7 +23,6 @@ function formatSelection(selection) {
     return selection.slice(0, 1).toUpperCase() + selection.slice(1).toLowerCase();
 }
 
-
 // Is the selection legal, return a boolean
 function isSelectionLegal(selection) {
     return selection == null ? false : SELECTIONS.includes(canonicalizeSelection(selection));
@@ -78,22 +77,32 @@ function playRound() {
     console.log(`You chose ${playerSelection}, computer chose ${computerSelection}`);
     let result = computeRound(playerSelection, computerSelection);
 
+    let msgRound = "";
     if (result > 0) {
-        console.log(`You Win! ${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`);
+        msgRound = `You Win! ${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`;
+        playerScore++;
     } else if (result < 0) {
-        console.log(`You Lose! ${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`);
+        msgRound = `You Lose! ${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`;
+        computerScore++;
     } else {
         console.assert(result == 0, "There's a bug in the playRound() function. Sorry.");
-        console.log(`Tie! You both chose ${formatSelection(computerSelection)}. Try again.`);
+        msgRound = `Tie! You both chose ${formatSelection(computerSelection)}. Try again.`;
+        // no need to adjust either score
     }
+    console.log(msgRound);
+    document.getElementById('msgRound').textContent = msgRound;
+    outputScore(playerScore, computerScore);
 
     return result;
 }
 
 function outputScore(playerScore, computerScore) {
     console.log(`SCORE: Player: ${playerScore} Computer: ${computerScore}`);
+    document.getElementById('playerScore').textContent = playerScore;
+    document.getElementById('computerScore').textContent = computerScore;
 }
 
+// XXX not yet called in UI version
 // Play 5 complete rounds of the game
 // We don't count rounds in which there is a tie
 function game() {
@@ -129,4 +138,7 @@ function game() {
     }
 }
 
+let playerScore = 0;
+let computerScore = 0;
+outputScore(playerScore, computerScore);
 document.querySelectorAll('button.move').forEach(button => button.addEventListener('click', playRound));
