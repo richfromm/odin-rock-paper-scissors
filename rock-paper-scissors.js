@@ -107,6 +107,16 @@ function outputScore(playerScore, computerScore) {
     updateText('computerScore', computerScore);
 }
 
+function showMoveButtons() {
+    document.querySelector('div.move').style.display = 'block';
+    document.querySelector('div.over').style.display = 'none';
+}
+
+function showPlayButton() {
+    document.querySelector('div.move').style.display = 'none';
+    document.querySelector('div.over').style.display = 'block';
+}
+
 function resetGame() {
     console.clear();
     let msgGame = "Hello, welcome to the classic game of Rock, Paper, Scissors.\n" +
@@ -114,6 +124,8 @@ function resetGame() {
         "\n" +
         "Make your move...\n";
     updateText('msgGame', msgGame);
+
+    showMoveButtons();
 
     playerScore = 0;
     computerScore = 0;
@@ -137,6 +149,9 @@ function checkScore() {
         }
         console.log(msgGame);
         updateText('msgGame', msgGame);
+
+        // XXX not yet hooked up
+        showPlayButton();
     }
 }
 

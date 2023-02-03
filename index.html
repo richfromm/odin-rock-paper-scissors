@@ -8,12 +8,16 @@
 <body>
   <h1>Rock Paper Scissors</h1>
 
-  <div id="msgGame">Make your move...</div>
+  <div id="msgGame"></div>
 
-  <div>
+  <!-- One and only one of these is displayed at a time -->
+  <div class="move buttons" display="none">
     <button class="move" data-move="rock">Rock</button>
     <button class="move" data-move="paper">Paper</button>
     <button class="move" data-move="scissors">Scissors</button>
+  </div>
+  <div class="over buttons" display="none">
+    <button class="over">Play Again</button>
   </div>
 
   <div id="msgRound"></div>
