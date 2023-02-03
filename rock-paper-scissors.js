@@ -69,7 +69,7 @@ function computeRound(playerSelection, computerSelection) {
 // Player choice is via the custom data attribute "move" on the button element attached to this function
 // (as a click event listener)
 // Computer choice is random
-// Compute the result, log meaningful messages, and return values as shown in computeRound()
+// Compute the result, log meaningful messages, and check the score of the game
 function playRound() {
     // this is the button element
     let playerSelection = this.dataset["move"]
@@ -93,7 +93,8 @@ function playRound() {
     document.getElementById('msgRound').textContent = msgRound;
     outputScore(playerScore, computerScore);
 
-    return result;
+    // will end game if appropriate
+    checkScore();
 }
 
 function outputScore(playerScore, computerScore) {
@@ -102,43 +103,40 @@ function outputScore(playerScore, computerScore) {
     document.getElementById('computerScore').textContent = computerScore;
 }
 
-// XXX not yet called in UI version
-// Play 5 complete rounds of the game
-// We don't count rounds in which there is a tie
-function game() {
-    const NUM_ROUNDS = 5;
-    // don't allow an even number or rounds, so we can force a winner
-    console.assert(NUM_ROUNDS % 2 == 1, "Please set an odd number of rounds, to force a winner.");
-
+function resetGame() {
     console.clear();
     console.log("Hello, welcome to the classic game of Rock, Paper, Scissors.");
     console.log(`We are going to play best of ${NUM_ROUNDS}. Ties do over.`);
-    let playerScore = 0;
-    let computerScore = 0;
 
+    playerScore = 0;
+    computerScore = 0;
     outputScore(playerScore, computerScore);
-    while (playerScore + computerScore < NUM_ROUNDS) {
-        let result = playRound();
-        if (result > 0) {
-            playerScore++;
-        } else if (result < 0) {
-            computerScore++;
-        }
-        // else tie, no need to adjust either score
-        outputScore(playerScore, computerScore);
-    }
-    console.log("Game Over!");
+}
 
-    if (playerScore > computerScore) {
-        console.log("Congratulations! You won the game!");
-    } else if (playerScore < computerScore) {
-        console.log("Sorry, you lost the game. Better luck next time.");
-    } else {
-        console.error("Somehow you both tied, that's not supposed to be able to happen");
+// Play NUM_ROUNDS complete rounds of the game
+// We don't count rounds in which there is a tie
+function checkScore() {
+    if (playerScore + computerScore >= NUM_ROUNDS) {
+        // XXX UI still not present
+        console.log("Game Over!");
+        // XXX really we should allow you to play again
+        document.querySelectorAll('button.move').forEach(button => button.removeEventListener('click', playRound));
+
+        if (playerScore > computerScore) {
+            console.log("Congratulations! You won the game!");
+        } else if (playerScore < computerScore) {
+            console.log("Sorry, you lost the game. Better luck next time.");
+        } else {
+            console.error("Somehow you both tied, that's not supposed to be able to happen");
+        }
     }
 }
 
-let playerScore = 0;
-let computerScore = 0;
-outputScore(playerScore, computerScore);
+// XXX are global variables bad?
+let playerScore, computerScore;
+const NUM_ROUNDS = 5;
+// don't allow an even number or rounds, so we can force a winner
+console.assert(NUM_ROUNDS % 2 == 1, "Please set an odd number of rounds, to force a winner.");
+resetGame();
+
 document.querySelectorAll('button.move').forEach(button => button.addEventListener('click', playRound));
