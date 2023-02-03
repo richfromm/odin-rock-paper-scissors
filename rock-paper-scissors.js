@@ -65,6 +65,10 @@ function computeRound(playerSelection, computerSelection) {
     return -1;
 }
 
+function updateText(elementId, text) {
+    document.getElementById(elementId).textContent = text;
+}
+
 // Play a single round of the game
 // Player choice is via the custom data attribute "move" on the button element attached to this function
 // (as a click event listener)
@@ -90,7 +94,7 @@ function playRound() {
         // no need to adjust either score
     }
     console.log(msgRound);
-    document.getElementById('msgRound').textContent = msgRound;
+    updateText('msgRound', msgRound);
     outputScore(playerScore, computerScore);
 
     // will end game if appropriate
@@ -99,14 +103,17 @@ function playRound() {
 
 function outputScore(playerScore, computerScore) {
     console.log(`SCORE: Player: ${playerScore} Computer: ${computerScore}`);
-    document.getElementById('playerScore').textContent = playerScore;
-    document.getElementById('computerScore').textContent = computerScore;
+    updateText('playerScore', playerScore);
+    updateText('computerScore', computerScore);
 }
 
 function resetGame() {
     console.clear();
-    console.log("Hello, welcome to the classic game of Rock, Paper, Scissors.");
-    console.log(`We are going to play best of ${NUM_ROUNDS}. Ties do over.`);
+    let msgGame = "Hello, welcome to the classic game of Rock, Paper, Scissors.\n" +
+        `We are going to play best of ${NUM_ROUNDS}. Ties do over.\n` +
+        "\n" +
+        "Make your move...\n";
+    updateText('msgGame', msgGame);
 
     playerScore = 0;
     computerScore = 0;
@@ -117,18 +124,19 @@ function resetGame() {
 // We don't count rounds in which there is a tie
 function checkScore() {
     if (playerScore + computerScore >= NUM_ROUNDS) {
-        // XXX UI still not present
-        console.log("Game Over!");
         // XXX really we should allow you to play again
         document.querySelectorAll('button.move').forEach(button => button.removeEventListener('click', playRound));
 
+        let msgGame = "Game Over!\n";
         if (playerScore > computerScore) {
-            console.log("Congratulations! You won the game!");
+            msgGame += "Congratulations! You won the game!";
         } else if (playerScore < computerScore) {
-            console.log("Sorry, you lost the game. Better luck next time.");
+            msgGame += "Sorry, you lost the game. Better luck next time.";
         } else {
-            console.error("Somehow you both tied, that's not supposed to be able to happen");
+            msgGame += "Somehow you both tied, that's not supposed to be able to happen";
         }
+        console.log(msgGame);
+        updateText('msgGame', msgGame);
     }
 }
 
