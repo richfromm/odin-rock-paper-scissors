@@ -81,20 +81,20 @@ function playRound() {
     console.log(`You chose ${playerSelection}, computer chose ${computerSelection}`);
     let result = computeRound(playerSelection, computerSelection);
 
-    let msgRound = "";
+    let msgTop;
     if (result > 0) {
-        msgRound = `You Win! ${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`;
+        msgTop = `You Win! ${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`;
         playerScore++;
     } else if (result < 0) {
-        msgRound = `You Lose! ${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`;
+        msgTop = `You Lose! ${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`;
         computerScore++;
     } else {
         console.assert(result == 0, "There's a bug in the playRound() function. Sorry.");
-        msgRound = `Tie! You both chose ${formatSelection(computerSelection)}. Try again.`;
+        msgTop = `Tie! You both chose ${formatSelection(computerSelection)}. Try again.`;
         // no need to adjust either score
     }
-    console.log(msgRound);
-    updateText('msgRound', msgRound);
+    console.log(msgTop);
+    updateText('msgTop', msgTop);
     outputScore(playerScore, computerScore);
 
     // will end game if appropriate
@@ -107,64 +107,99 @@ function outputScore(playerScore, computerScore) {
     updateText('computerScore', computerScore);
 }
 
-function showMoveButtons() {
-    console.log("Showing move buttons, hiding play button");
-    document.querySelector('div.move').style.display = 'block';
-    document.querySelector('div.over').style.display = 'none';
-}
-
 function showPlayButton() {
-    console.log("Showing play button, hiding move buttons");
-    document.querySelector('div.move').style.display = 'none';
-    document.querySelector('div.over').style.display = 'block';
+    console.log("Showing play button, hiding other buttons");
+    document.querySelector('div#play1').style.display = 'block';
+    document.querySelector('div#move').style.display = 'none';
+    document.querySelector('div#play2').style.display = 'none';
 }
 
-function resetGame() {
-    console.clear();
-    console.log("Resetting game");
+function showMoveButtons() {
+    console.log("Showing move buttons, hiding other button");
+    document.querySelector('div#play1').style.display = 'none';
+    document.querySelector('div#move').style.display = 'block';
+    document.querySelector('div#play2').style.display = 'none';
+}
 
-    let msgGame = "Hello, welcome to the classic game of Rock, Paper, Scissors.\n" +
-        `We are going to play best of ${NUM_ROUNDS}. Ties do over.\n` +
-        "\n" +
-        "Make your move...\n";
-    updateText('msgGame', msgGame);
+function showReplayButton() {
+    console.log("Showing replay button, hiding other buttons");
+    document.querySelector('div#play1').style.display = 'none';
+    document.querySelector('div#move').style.display = 'none';
+    document.querySelector('div#play2').style.display = 'block';
+}
 
-    showMoveButtons();
-
-    updateText('msgRound', "");
-
+function resetScore() {
     playerScore = 0;
     computerScore = 0;
     outputScore(playerScore, computerScore);
+}
+
+function clearBottom() {
+    updateText('msgBottom1', "");
+    updateText('msgBottom2', "");    
+}
+
+function firstTime() {
+    console.clear();
+    console.log("First time");
+
+    resetScore();
+    clearBottom();
+
+    let msgTop = "Welcome to the classic game of Rock, Paper, Scissors.\n" +
+        `We are going to play best of ${NUM_ROUNDS}. Ties do over.`;
+    updateText('msgTop', msgTop);
+
+    showPlayButton();
+}
+
+function playGame() {
+    console.log("Play game");
+
+    resetScore();
+    clearBottom();
+
+    updateText('msgTop', "Make your first move...");
+
+    showMoveButtons();
 }
 
 // Play NUM_ROUNDS complete rounds of the game
 // We don't count rounds in which there is a tie
 function checkScore() {
     if (playerScore + computerScore >= NUM_ROUNDS) {
-        let msgGame = "Game Over!\n";
-        if (playerScore > computerScore) {
-            msgGame += "Congratulations! You won the game!";
-        } else if (playerScore < computerScore) {
-            msgGame += "Sorry, you lost the game. Better luck next time.";
-        } else {
-            msgGame += "Somehow you both tied, that's not supposed to be able to happen";
-        }
-        console.log(msgGame);
-        updateText('msgGame', msgGame);
-
-        showPlayButton();
+        gameOver();
     }
+}
+
+function gameOver() {
+    let msgBottom1 = "Game Over!";
+    console.log(msgBottom1);
+    updateText('msgBottom1', msgBottom1);
+
+    let msgBottom2;
+    if (playerScore > computerScore) {
+        msgBottom2 = "Congratulations! You won the game!";
+    } else if (playerScore < computerScore) {
+        msgBottom2 = "Sorry, you lost the game. Better luck next time.";
+    } else {
+        msgBottom2 = "Somehow you both tied, that's not supposed to be able to happen";
+    }
+    console.log(msgBottom2);
+    updateText('msgBottom2', msgBottom2);
+
+    showReplayButton();
 }
 
 // We *don't* need to call this repeatedly, even when hiding/showing buttons
 function addEventListeners() {
     // Even though the listeners are always in effect (we don't remove them),
-    // it's not effectively possible to do both at the same time, b/c only one
-    // of these types is showing at any moment in time.
+    // it's not effectively possible to do click differnt button types at the
+    // same time, b/c only one of these types is showing at any moment in time.
     document.querySelectorAll('button.move').forEach(
         button => button.addEventListener('click', playRound));
-    document.querySelector('button.over').addEventListener('click', resetGame);
+    document.querySelectorAll('button.play').forEach(
+        button => button.addEventListener('click', playGame));
 }
 
 // XXX are global variables bad?
@@ -175,5 +210,5 @@ const NUM_ROUNDS = 5;
 // don't allow an even number or rounds, so we can force a winner
 console.assert(NUM_ROUNDS % 2 == 1, "Please set an odd number of rounds, to force a winner.");
 
-resetGame();
 addEventListeners();
+firstTime();

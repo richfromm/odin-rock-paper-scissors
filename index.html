@@ -6,24 +6,25 @@
   <title>Rock Paper Scissors</title>
 </head>
 <body>
-  <h1>Rock Paper Scissors</h1>
+  <div class="headTitle">Rock Paper Scissors</div>
 
-  <div id="msgGame"></div>
+  <div id="msgTop"></div>
 
   <!-- One and only one of these is displayed at a time -->
-  <div class="move buttons" display="none">
+  <div id="play1" class="buttons" display="none">
+    <button class="play">Play Game</button>
+  </div>
+  <div id="move" class="buttons" display="none">
     <button class="move" data-move="rock">Rock</button>
     <button class="move" data-move="paper">Paper</button>
     <button class="move" data-move="scissors">Scissors</button>
   </div>
-  <div class="over buttons" display="none">
-    <button class="over">Play Again</button>
+  <div id="play2" class="buttons" display="none">
+    <button class="play">Play Again</button>
   </div>
 
-  <div id="msgRound"></div>
-
   <div>
-    <h2>Score</h2>
+    <div class="headScore">Score</div>
     <div>
       <div>
         Player
@@ -35,5 +36,11 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <div id="msgBottom1"></div>
+    <div id="msgBottom2"></div>
+  </div>
+
 </body>
 </html>
