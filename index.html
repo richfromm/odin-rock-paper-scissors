@@ -2,44 +2,48 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@400;700;800&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">  
+  <link rel="stylesheet" href="style.css">
   <script type="application/javascript" src="rock-paper-scissors.js" defer></script>
   <title>Rock Paper Scissors</title>
 </head>
 <body>
-  <div class="headTitle">Rock Paper Scissors</div>
+  <div class="head">Rock Paper Scissors</div>
 
-  <div id="msgTop"></div>
+  <div class="msg" id="msgTop"></div>
 
   <!-- One and only one of these is displayed at a time -->
-  <div id="play1" class="buttons" display="none">
+  <div class="buttons" id="play1" display="none">
     <button class="play">Play Game</button>
   </div>
-  <div id="move" class="buttons" display="none">
+  <div class="buttons" id="move" display="none">
     <button class="move" data-move="rock">Rock</button>
     <button class="move" data-move="paper">Paper</button>
     <button class="move" data-move="scissors">Scissors</button>
   </div>
-  <div id="play2" class="buttons" display="none">
+  <div class="buttons" id="play2" display="none">
     <button class="play">Play Again</button>
   </div>
 
-  <div>
-    <div class="headScore">Score</div>
-    <div>
-      <div>
+  <div class="nospace score">
+    <div class="nospace">Score</div>
+    <div class="nospace scores">
+      <div class="nospace player">
         Player
-        <div id="playerScore"></div>
+        <div class="nospace" id="playerScore"></div>
       </div>
-      <div>
+      <div class="nospace computer">
         Computer
-        <div id="computerScore"></div>
+        <div class="nospace" id="computerScore"></div>
       </div>
     </div>
   </div>
 
-  <div>
-    <div id="msgBottom1"></div>
-    <div id="msgBottom2"></div>
+  <div class="msg">
+    <div class="nospace" id="msgBottom1"></div>
+    <div class="nospace" id="msgBottom2"></div>
   </div>
 
 </body>

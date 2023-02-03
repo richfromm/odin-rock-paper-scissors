@@ -1,0 +1,79 @@
+body {
+  color: brown;
+  background-color: blanchedalmond;
+  font-family: "Merriweather Sans", serif;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 48px;
+}
+
+div {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.nospace {
+  margin: 0px;
+}
+
+.head {
+  font-size: 48px;
+}
+
+.msg {
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+button {
+  background-color: forestgreen;
+  color: ghostwhite;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+}
+
+.score {
+  font-family: "Merriweather", sans-serif;
+  font-weight: 900;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+/*
+div.score {
+  margin: 0px;
+}
+*/
+
+.scores {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.player {
+  color: blue;
+}
+
+.computer {
+  color: red;
+}

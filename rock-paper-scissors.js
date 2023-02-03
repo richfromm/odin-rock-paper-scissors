@@ -109,7 +109,7 @@ function outputScore(playerScore, computerScore) {
 
 function showPlayButton() {
     console.log("Showing play button, hiding other buttons");
-    document.querySelector('div#play1').style.display = 'block';
+    document.querySelector('div#play1').style.display = 'flex';
     document.querySelector('div#move').style.display = 'none';
     document.querySelector('div#play2').style.display = 'none';
 }
@@ -117,7 +117,7 @@ function showPlayButton() {
 function showMoveButtons() {
     console.log("Showing move buttons, hiding other button");
     document.querySelector('div#play1').style.display = 'none';
-    document.querySelector('div#move').style.display = 'block';
+    document.querySelector('div#move').style.display = 'flex';
     document.querySelector('div#play2').style.display = 'none';
 }
 
@@ -125,7 +125,7 @@ function showReplayButton() {
     console.log("Showing replay button, hiding other buttons");
     document.querySelector('div#play1').style.display = 'none';
     document.querySelector('div#move').style.display = 'none';
-    document.querySelector('div#play2').style.display = 'block';
+    document.querySelector('div#play2').style.display = 'flex';
 }
 
 function resetScore() {
