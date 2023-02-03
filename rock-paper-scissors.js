@@ -67,20 +67,13 @@ function computeRound(playerSelection, computerSelection) {
 }
 
 // Play a single round of the game
-// Prompt the user, verify the choice is legal, choose randomly for the computer
+// Player choice is via the custom data attribute "move" on the button element attached to this function
+// (as a click event listener)
+// Computer choice is random
 // Compute the result, log meaningful messages, and return values as shown in computeRound()
 function playRound() {
-    let playerSelection;
-    let legalSelection = false;
-    while (!legalSelection) {
-        playerSelection = prompt("What's your selection? (Rock, Paper, or Scissors)");
-        if (!isSelectionLegal(playerSelection)) {
-            alert(`${playerSelection} is not a legal choice! Try again.`);
-        } else {
-            legalSelection = true;
-        }
-    }
-
+    // this is the button element
+    let playerSelection = this.dataset["move"]
     let computerSelection = getComputerChoice();
     console.log(`You chose ${playerSelection}, computer chose ${computerSelection}`);
     let result = computeRound(playerSelection, computerSelection);
@@ -136,5 +129,4 @@ function game() {
     }
 }
 
-// Play the game!
-document.getElementById("play").addEventListener("click", game);
+document.querySelectorAll('button.move').forEach(button => button.addEventListener('click', playRound));
