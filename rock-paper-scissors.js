@@ -107,22 +107,16 @@ function outputScore(playerScore, computerScore) {
     updateText('computerScore', computerScore);
 }
 
-// XXX using visibility vs. display doesn't affect the event listener problem
-
 function showMoveButtons() {
     console.log("Showing move buttons, hiding play button");
     document.querySelector('div.move').style.display = 'block';
     document.querySelector('div.over').style.display = 'none';
-    // document.querySelector('div.move').style.visibility = 'visible';
-    // document.querySelector('div.over').style.visibility = 'hidden';
 }
 
 function showPlayButton() {
     console.log("Showing play button, hiding move buttons");
     document.querySelector('div.move').style.display = 'none';
     document.querySelector('div.over').style.display = 'block';
-    // document.querySelector('div.move').style.visibility = 'hidden';
-    // document.querySelector('div.over').style.visibility = 'visible';
 }
 
 function resetGame() {
