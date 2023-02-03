@@ -7,6 +7,7 @@ const COMPUTER_COLOR = 'red';
 const DEFAULT_COLOR = 'brown';
 
 const BOLD = 'bold';
+const BIG = 'larger';
 
 // Return a random integer between 0 (inclusive) and max (exclusive)
 // Copied from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -72,10 +73,18 @@ function computeRound(playerSelection, computerSelection) {
     return -1;
 }
 
-function updateText(elementId, text, color = DEFAULT_COLOR, fontWeight = 'normal') {
+function updateText(
+    elementId, text,
+    color = DEFAULT_COLOR,
+    fontWeight = 'normal',
+    fontSize = undefined)
+{
     document.getElementById(elementId).textContent = text;
     document.getElementById(elementId).style.color = color;
     document.getElementById(elementId).style.fontWeight = fontWeight;
+    if (fontSize) {
+        document.getElementById(elementId).style.fontSize = fontSize;
+    }
 }
 
 // Play a single round of the game
@@ -108,7 +117,7 @@ function playRound() {
         // no need to adjust either score
     }
     console.log(msgTop1, msgTop2);
-    updateText('msgTop1', msgTop1, color1, BOLD);
+    updateText('msgTop1', msgTop1, color1, BOLD, BIG);
     updateText('msgTop2', msgTop2);
     outputScore(playerScore, computerScore);
 
@@ -192,7 +201,7 @@ function checkScore() {
 function gameOver() {
     let msgBottom1 = "Game Over!";
     console.log(msgBottom1);
-    updateText('msgBottom1', msgBottom1, DEFAULT_COLOR, BOLD);
+    updateText('msgBottom1', msgBottom1, DEFAULT_COLOR, BOLD, BIG);
 
     let msgBottom2, color2;
     if (playerScore > computerScore) {
