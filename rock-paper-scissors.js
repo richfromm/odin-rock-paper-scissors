@@ -1,5 +1,10 @@
 // we will convert all text to lowercase
-const SELECTIONS = ["rock", "paper", "scissors"];
+const SELECTIONS = ['rock', 'paper', 'scissors'];
+
+const PLAYER_COLOR = 'blue';
+const COMPUTER_COLOR = 'red';
+// keep consistent with body color in style.css
+const DEFAULT_COLOR = 'brown';
 
 // Return a random integer between 0 (inclusive) and max (exclusive)
 // Copied from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -65,8 +70,9 @@ function computeRound(playerSelection, computerSelection) {
     return -1;
 }
 
-function updateText(elementId, text) {
+function updateText(elementId, text, color = DEFAULT_COLOR) {
     document.getElementById(elementId).textContent = text;
+    document.getElementById(elementId).style.color = color;
 }
 
 // Play a single round of the game
@@ -81,13 +87,15 @@ function playRound() {
     console.log(`You chose ${playerSelection}, computer chose ${computerSelection}`);
     let result = computeRound(playerSelection, computerSelection);
 
-    let msgTop1, msgTop2;
+    let msgTop1, msgTop2, color1;
     if (result > 0) {
         msgTop1 = "You Win!";
+        color1 = PLAYER_COLOR;
         msgTop2 = `${formatSelection(playerSelection)} beats ${formatSelection(computerSelection)}`;
         playerScore++;
     } else if (result < 0) {
         msgTop1 = "You Lose!";
+        color1 = COMPUTER_COLOR;
         msgTop2 = `${formatSelection(computerSelection)} beats ${formatSelection(playerSelection)}`;
         computerScore++;
     } else {
@@ -97,7 +105,7 @@ function playRound() {
         // no need to adjust either score
     }
     console.log(msgTop1, msgTop2);
-    updateText('msgTop1', msgTop1);
+    updateText('msgTop1', msgTop1, color1);
     updateText('msgTop2', msgTop2);
     outputScore(playerScore, computerScore);
 
@@ -183,16 +191,18 @@ function gameOver() {
     console.log(msgBottom1);
     updateText('msgBottom1', msgBottom1);
 
-    let msgBottom2;
+    let msgBottom2, color2;
     if (playerScore > computerScore) {
         msgBottom2 = "Congratulations! You won the game!";
+        color2 = PLAYER_COLOR;
     } else if (playerScore < computerScore) {
         msgBottom2 = "Sorry, you lost the game. Better luck next time.";
+        color2 = COMPUTER_COLOR;
     } else {
         msgBottom2 = "Somehow you both tied, that's not supposed to be able to happen";
     }
     console.log(msgBottom2);
-    updateText('msgBottom2', msgBottom2);
+    updateText('msgBottom2', msgBottom2, color2);
 
     showReplayButton();
 }

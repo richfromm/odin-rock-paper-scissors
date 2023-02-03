@@ -1,5 +1,5 @@
 body {
-  color: brown;
+  color: brown;  /* keep consistent with DEFAULT_COLOR in rock-paper-scissors.js */
   background-color: blanchedalmond;
   font-family: "Merriweather Sans", serif;
   font-size: 18px;
